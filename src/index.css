@@ -8,8 +8,14 @@
 }
 
 body {
-  /* min-width: 320px; */
+  background-image: url("./../src/assets/bg.png");
+  background-position: center;
+  background-size: cover;
   min-height: 100vh;
+  max-height: 100vh;
+  min-width: 100vw;
+  max-width: 100vw;
+  overflow: hidden;
 }
 
 a {

@@ -1,0 +1,15 @@
+.Header {
+  border: 1px solid #fff;
+  padding: 5vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .leftContainer {
+    /* border: 1px solid #fff; */
+    width: 33vw;
+  }
+  .rightContainer {
+    /* border: 1px solid #fff; */
+    width: 22vw;
+  }
+}
