@@ -1,3 +1,33 @@
 .HomePage {
   border: 1px solid #fff;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15vw;
+  /* border: 1px solid #fff; */
+  display: flex;
+  flex-direction: column;
+  gap: 15vw;
+  .containerOne {
+    /* border: 1px solid #fff; */
+    width: 50vw;
+  }
+  .containerTwo {
+    /* border: 1px solid #fff; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2vw;
+    .txt {
+      color: #fff;
+      text-align: center;
+    }
+    .logoContainer {
+      width: 35vw;
+      /* border: 1px solid #fff; */
+    }
+  }
 }

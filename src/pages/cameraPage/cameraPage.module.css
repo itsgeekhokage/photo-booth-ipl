@@ -1,3 +1,47 @@
 .CameraPage {
-  border: 1px solid #fff;
+  /* border: 1px solid #fff; */
+  margin-top: 15vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15vw;
+
+  .main {
+    /* background-color: #fff; */
+    width: 80vw;
+    border: 1vw solid #a4cf65;
+    /* border-bottom: 1.2vw solid #c72041; */
+    .webcamParent {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+      #webcam {
+        width: 100%;
+        /* margin: 0 auto; */
+        /* object-fit: cover; */
+      }
+      .capturedImage {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        /* object-fit: cover; */
+      }
+    }
+  }
+
+  .footer {
+    display: flex;
+    flex-direction: column;
+    gap: 5vw;
+    .captureBtn {
+      /* padding: 2vw 13vw; */
+      width: 60vw;
+    }
+  }
 }
