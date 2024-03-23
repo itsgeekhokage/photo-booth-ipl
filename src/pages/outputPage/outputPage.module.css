@@ -1,3 +1,41 @@
 .OutputPage {
-  border: 1px solid #fff;
+  /* border: 1px solid #fff; */
+  margin-top: 5vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5vw;
+  .headerOne {
+    /* border: 1px solid #fff; */
+    font-size: 6vw;
+  }
+  .headerTwo {
+    /* border: 1px solid #fff; */
+    font-size: 7vw;
+    line-height: 9vw;
+  }
+  .loader {
+    margin-top: 40vw;
+    width: 70vw;
+  }
+  .generatedImgContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5vw;
+    .imgContainer {
+      width: 50vw;
+    }
+    .btnContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 5vw;
+      .btn {
+        width: 55vw;
+        padding: 1vw 5vw;
+      }
+    }
+  }
 }

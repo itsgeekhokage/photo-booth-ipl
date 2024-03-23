@@ -4,12 +4,24 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, Link } from "react-router-dom";
-// import select from "./../../../assets/select.png";
 
-export default function AvatarPage() {
+import { cardsArr } from "../../utils/avatar/cards";
+import { originalImagesArr } from "../../utils/avatar/originalImages";
+import { base64 } from "../../utils/base64";
+import { db } from "./../../config/firebase";
+import {
+  collection,
+  arrayUnion,
+  doc,
+  updateDoc,
+  addDoc,
+} from "firebase/firestore";
+
+import select from "./../../assets/avatar/select.svg";
+
+export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState();
-  const [cards, setCards] = useState();
   const [selectedImageIndex, setSelectedImageIndex] = useState();
 
   // toast options
@@ -21,41 +33,65 @@ export default function AvatarPage() {
     theme: "light",
   };
 
+  // filtering card image with original image
+  const filterOriginalImg = index => {
+    const filteredOriginalImgArr = originalImagesArr.filter(
+      (originalImg, originalImgIndex) => originalImgIndex === index
+    );
+    return filteredOriginalImgArr[0];
+  };
+
+  // image uploading on firebase
+  const addLinks = async imgLink => {
+    console.log("image uploaded on firebase");
+    const valueRef = collection(db, "images");
+    const result = await addDoc(valueRef, { link: imgLink });
+  };
+
+  // image uploading on server
+  const getUrl = url => {
+    axios
+      .post(
+        "https://adp24companyday.com/aiphotobooth/aiphotobooth_garnier/upload.php",
+        {
+          img: url,
+        }
+      )
+      .then(function (response) {
+        setUrl(response.data.url);
+        console.log("image uploaded on server");
+        addLinks(response.data.url);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   // submitting the selected image and post request to api
   const handleSubmit = () => {
-    console.log("clicked");
-    setGeneratedImage("");
-    if (selectedImage) {
+    console.log("submitting selected avatar");
+    setGeneratedImg("");
+    if (selectedImage && capturedImg) {
       axios
-        .post("https://2eda-103-17-110-127.ngrok-free.app/rec", {
-          image: capturedImage.split(",")[1],
+        .post("https://aada-103-17-110-127.ngrok-free.app/rec", {
+          image: capturedImg.split(",")[1],
           choice: selectedImage.split(",")[1],
         })
         .then(function (response) {
           console.log(response);
-          setGeneratedImage(`data:image/webp;base64,${response.data.result}`);
+          setGeneratedImg(`data:image/webp;base64,${response.data.result}`);
+          // image uploading on server
+          getUrl(response.data.result);
         })
         .catch(function (error) {
           console.log(error);
         });
-      navigate("/generated-image");
+      navigate("/output");
     } else {
-      toast.error("Please select an image...", toastOptions);
-    }
-  };
-
-  // filtering card image with actual image
-  const filterActualImg = index => {
-    if (selectedGender.toLowerCase() === "female") {
-      const filteredActualImgArr = femaleCardsActual.filter(
-        (actualImg, ActualIndex) => ActualIndex === index
+      toast.error(
+        "Please select an image or capture your photo again...",
+        toastOptions
       );
-      return filteredActualImgArr[0];
-    } else if (selectedGender.toLowerCase() === "male") {
-      const filteredActualImgArr = maleCardsActual.filter(
-        (actualImg, ActualIndex) => ActualIndex === index
-      );
-      return filteredActualImgArr[0];
     }
   };
 
@@ -65,43 +101,45 @@ export default function AvatarPage() {
         SELECT YOUR <br /> AVATAR
       </h1>
 
-      <main>
-        {cards?.map((src, index) => (
+      <main className={styles.main}>
+        {cardsArr?.map((img, index) => (
           <div
             key={index}
-            className={`singleImageContainer`}
-            id={index == 0 || index == 7 || index == 3 ? "mt" : ""}
+            className={styles.singleImageContainer}
             onClick={() => {
               setSelectedImageIndex(index);
-              console.log("img", src);
-              var img = new Image();
-              const actualImg = filterActualImg(index);
-              img.src = actualImg;
-              img.onload = () => {
-                console.log("actual+>", actualImg);
-                setSelectedImage(getImageData(img));
-              };
+              const originalImg = filterOriginalImg(index);
+              base64(originalImg, base64Data => {
+                console.log("Base64 data:", base64Data);
+                setSelectedImage(base64Data);
+              });
             }}
           >
-            <div className="imageParent">
-              <img src={src} alt="modals" />
-              <div className="imageHoverContainer"></div>
-            </div>
+            <div className={styles.parent}>
+              <div className={styles.imgContainer}>
+                <img src={img} alt="avatar" />
+              </div>
 
-            <img
-              src={select}
-              alt="selected"
-              className={`selectIcon ${
-                selectedImageIndex === index ? "showSelectIcon" : ""
-              }`}
-            />
+              <div
+                className={`${styles.hoverContainer} ${
+                  selectedImageIndex === index ? styles.showHoverContainer : ""
+                }`}
+              >
+                <div className={`${styles.selectIcon}`}>
+                  <img src={select} alt="selected" />
+                </div>
+              </div>
+            </div>
           </div>
         ))}
       </main>
 
-      <footer>
-        <button onClick={handleSubmit}>Submit</button>
+      <footer className={styles.footer}>
+        <button onClick={handleSubmit} className={styles.submitBtn}>
+          SUBMIT
+        </button>
       </footer>
+      <ToastContainer />
     </div>
   );
 }

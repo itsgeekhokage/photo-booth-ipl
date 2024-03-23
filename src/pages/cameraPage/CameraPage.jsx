@@ -6,6 +6,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Webcam from "react-webcam";
 
+import smileTxt from "./../../assets/camera/smileTxt.svg";
+import readyTxt from "./../../assets/camera/readyTxt.svg";
+
 export default function CameraPage({ setCapturedImg }) {
   const webRef = useRef();
   const navigate = useNavigate();
@@ -46,7 +49,10 @@ export default function CameraPage({ setCapturedImg }) {
 
   return (
     <div className={styles.CameraPage}>
-      <h1>{isCaptured ? "DO YOU LIKE THIS ?" : "SMILE AND CLICK !"}</h1>
+      <img
+        src={isCaptured ? readyTxt : smileTxt}
+        className={styles.headingImg}
+      />
 
       <main className={styles.main}>
         <div className={styles.webcamParent}>
