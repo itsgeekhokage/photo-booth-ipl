@@ -43,9 +43,19 @@ export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
 
   // image uploading on firebase
   const addLinks = async imgLink => {
-    console.log("image uploaded on firebase");
     const valueRef = collection(db, "images");
-    const result = await addDoc(valueRef, { link: imgLink });
+
+    // timestamp
+    const timestamp = new Date();
+    try {
+      await addDoc(valueRef, {
+        link: imgLink,
+        timestamp: timestamp,
+      });
+      console.log("image and timestamp uploaded on Firebase.");
+    } catch (err) {
+      console.error("error adding document:", err);
+    }
   };
 
   // image uploading on server
