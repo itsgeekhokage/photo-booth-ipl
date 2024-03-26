@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./avatarPage.module.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -24,6 +24,17 @@ export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
   const [selectedImage, setSelectedImage] = useState();
   const [selectedImageIndex, setSelectedImageIndex] = useState();
 
+  // converting selectedImage to base64 format
+  const canvas = document.createElement("canvas");
+  const context = canvas.getContext("2d");
+
+  const getImageData = img => {
+    canvas.width = img.width;
+    canvas.height = img.height;
+    context.drawImage(img, 0, 0);
+    return canvas.toDataURL("image/png");
+  };
+
   // toast options
   const toastOptions = {
     position: "top-left",
@@ -32,6 +43,14 @@ export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
     draggable: true,
     theme: "light",
   };
+
+  useEffect(() => {
+    const originalImg = filterOriginalImg(selectedImageIndex);
+    base64(originalImg, base64Data => {
+      console.log("Base64 data:", base64Data);
+      setSelectedImage(base64Data);
+    });
+  }, [selectedImageIndex]);
 
   // filtering card image with original image
   const filterOriginalImg = index => {
@@ -118,11 +137,19 @@ export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
             className={styles.singleImageContainer}
             onClick={() => {
               setSelectedImageIndex(index);
-              const originalImg = filterOriginalImg(index);
+              // const originalImg = filterOriginalImg(index);
+              /* 
               base64(originalImg, base64Data => {
                 console.log("Base64 data:", base64Data);
                 setSelectedImage(base64Data);
-              });
+              }); */
+
+              var img = new Image();
+              const originalImg = filterOriginalImg(index);
+              img.src = originalImg;
+              img.onload = () => {
+                setSelectedImage(getImageData(img));
+              };
             }}
           >
             <div className={styles.parent}>
