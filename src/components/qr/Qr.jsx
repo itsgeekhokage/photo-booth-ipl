@@ -4,6 +4,8 @@ import styles from "./qr.module.css";
 import QRCode from "react-qr-code";
 import { IoIosCloseCircle } from "react-icons/io";
 
+import close from "./../../assets/close.svg";
+
 export default function Qr({ url, setShowQr }) {
   return (
     <div className={styles.Qr} onClick={() => setShowQr(false)}>
@@ -18,7 +20,7 @@ export default function Qr({ url, setShowQr }) {
 
         {/* close */}
         <div className={styles.close} onClick={() => setShowQr(false)}>
-          <IoIosCloseCircle />
+          <img src={close} alt="close" />
         </div>
       </div>
     </div>
