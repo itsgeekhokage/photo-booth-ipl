@@ -10,10 +10,8 @@ export default function Header() {
   const [showNavbar, setShowNavbar] = useState(true);
 
   useEffect(() => {
-    console.log(location.pathname);
-    if (location.pathname === "/grid") {
-      setShowNavbar(false);
-    } else if (location.pathname === "/") {
+    // console.log(location.pathname);
+    if (location.pathname === "/") {
       setShowNavbar(false);
     } else {
       setShowNavbar(true);

@@ -24,6 +24,7 @@ export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
   const [selectedImage, setSelectedImage] = useState();
   const [selectedImageIndex, setSelectedImageIndex] = useState();
 
+  /* 
   // converting selectedImage to base64 format
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d");
@@ -33,7 +34,7 @@ export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
     canvas.height = img.height;
     context.drawImage(img, 0, 0);
     return canvas.toDataURL("image/png");
-  };
+  }; */
 
   // toast options
   const toastOptions = {
@@ -44,19 +45,12 @@ export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
     theme: "light",
   };
 
-  useEffect(() => {
-    const originalImg = filterOriginalImg(selectedImageIndex);
-    base64(originalImg, base64Data => {
-      console.log("Base64 data:", base64Data);
-      setSelectedImage(base64Data);
-    });
-  }, [selectedImageIndex]);
-
   // filtering card image with original image
   const filterOriginalImg = index => {
     const filteredOriginalImgArr = originalImagesArr.filter(
       (originalImg, originalImgIndex) => originalImgIndex === index
     );
+    // console.log(filteredOriginalImgArr[0]);
     return filteredOriginalImgArr[0];
   };
 
@@ -71,7 +65,7 @@ export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
         link: imgLink,
         timestamp: timestamp,
       });
-      console.log("image and timestamp uploaded on Firebase.");
+      // console.log("image and timestamp uploaded on Firebase.");
     } catch (err) {
       console.error("error adding document:", err);
     }
@@ -88,7 +82,7 @@ export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
       )
       .then(function (response) {
         setUrl(response.data.url);
-        console.log("image uploaded on server");
+        // console.log("image uploaded on server");
         addLinks(response.data.url);
       })
       .catch(function (error) {
@@ -98,7 +92,7 @@ export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
 
   // submitting the selected image and post request to api
   const handleSubmit = () => {
-    console.log("submitting selected avatar");
+    // console.log("submitting selected avatar");
     setGeneratedImg("");
     if (selectedImage && capturedImg) {
       axios
@@ -107,7 +101,7 @@ export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
           choice: selectedImage.split(",")[1],
         })
         .then(function (response) {
-          console.log(response);
+          // console.log(response);
           setGeneratedImg(`data:image/webp;base64,${response.data.result}`);
           // image uploading on server
           getUrl(response.data.result);
@@ -137,6 +131,7 @@ export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
             className={styles.singleImageContainer}
             onClick={() => {
               setSelectedImageIndex(index);
+              setSelectedImage(filterOriginalImg(index));
               // const originalImg = filterOriginalImg(index);
               /* 
               base64(originalImg, base64Data => {
@@ -144,12 +139,12 @@ export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
                 setSelectedImage(base64Data);
               }); */
 
-              var img = new Image();
+              /*  var img = new Image();
               const originalImg = filterOriginalImg(index);
               img.src = originalImg;
               img.onload = () => {
                 setSelectedImage(getImageData(img));
-              };
+              }; */
             }}
           >
             <div className={styles.parent}>
