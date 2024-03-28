@@ -1,20 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./loader.module.css";
 
 export default function Loader() {
   const [lineArr, setLineArr] = useState([]);
-  let i = 1;
-  const arr = [];
-  setInterval(() => {
-    /* console.log(i, lineArr);
-    arr.push(i);
-    setLineArr(arr);
-    i++; */
-    console.log("hi");
-  }, 4000);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLineArr(prevLineArr => [...prevLineArr, prevLineArr.length + 1]);
+    }, 400);
+
+    // Stop the interval after 20 seconds
+    const timeout = setTimeout(() => {
+      clearInterval(interval);
+    }, 14000);
+
+    // Clean up the interval and timeout on unmount
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
+  }, []);
+
   return (
     <span className={styles.Loader}>
-      {lineArr?.map((item, index) => (
+      {lineArr.map((item, index) => (
         <div className={styles.line} key={index}></div>
       ))}
     </span>

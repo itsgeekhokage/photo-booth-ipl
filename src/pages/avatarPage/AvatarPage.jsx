@@ -18,6 +18,7 @@ import {
 } from "firebase/firestore";
 
 import select from "./../../assets/avatar/select.svg";
+import avatarText from "./../../assets/avatar/avatarText.svg";
 
 export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
   const navigate = useNavigate();
@@ -120,9 +121,9 @@ export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
 
   return (
     <div className={styles.AvatarPage}>
-      <h1>
-        SELECT YOUR <br /> AVATAR
-      </h1>
+      <div className={styles.avatarText}>
+        <img src={avatarText} alt="avatar-text" />
+      </div>
 
       <main className={styles.main}>
         {cardsArr?.map((img, index) => (
