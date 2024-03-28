@@ -13,6 +13,7 @@
 
 .gothamBlack {
   font-family: "GothamBlack", sans-serif;
+  color: #000;
 }
 
 :root {
@@ -67,4 +68,5 @@ button {
   font-size: 6vw;
   font-family: "GothamBlack", sans-serif;
   cursor: pointer;
+  color: #000;
 }

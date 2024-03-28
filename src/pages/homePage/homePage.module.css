@@ -5,6 +5,7 @@
   flex-direction: column;
   align-items: center;
   gap: 15vw;
+
   .topContainer {
     /* border: 1px solid #fff; */
     display: flex;
