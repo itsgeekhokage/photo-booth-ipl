@@ -22,7 +22,9 @@ export default function OutputPage({ generatedImg, url }) {
           YOUR AVATAR
         </h1>
       )} */}
-      <div className={styles.headingImg}>
+      <div
+        className={generatedImg ? styles.headingImgOne : styles.headingImgTwo}
+      >
         <img src={generatedImg ? readyText : generatingText} alt="image" />
       </div>
 
