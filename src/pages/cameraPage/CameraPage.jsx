@@ -38,7 +38,7 @@ export default function CameraPage({ setCapturedImg }) {
 
   // handle submit
   const handleSubmit = () => {
-    console.log("captured image submitting");
+    // console.log("captured image submitting");
     if (img) {
       setCapturedImg(img);
       navigate("/avatar");

@@ -7,6 +7,7 @@ import { IoIosCloseCircle } from "react-icons/io";
 import close from "./../../assets/close.svg";
 
 export default function Qr({ url, setShowQr }) {
+  // console.log("url =>", url);
   return (
     <div className={styles.Qr} onClick={() => setShowQr(false)}>
       <div
