@@ -3,12 +3,12 @@ import styles from "./outputPage.module.css";
 import { Link } from "react-router-dom";
 
 import Qr from "../../components/qr/Qr";
+import Loader from "../../components/loader/Loader";
 
 import loader from "./../../assets/output/loader.svg";
 
 export default function OutputPage({ generatedImg, url }) {
   const [showQr, setShowQr] = useState(false);
-  const [qr, setQr] = useState("");
 
   return (
     <div className={styles.OutputPage}>
@@ -37,6 +37,7 @@ export default function OutputPage({ generatedImg, url }) {
       ) : (
         <div className={styles.loader}>
           <img src={loader} alt="loader" />
+          {/* <Loader /> */}
         </div>
       )}
 
