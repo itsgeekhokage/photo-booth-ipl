@@ -17,8 +17,10 @@ export default function CameraPage({ setCapturedImg }) {
 
   // handle-capture
   const handleCapture = e => {
-    setIsCaptured(true);
-    setImg(webRef.current.getScreenshot());
+    if (webRef.current.getScreenshot()) {
+      setIsCaptured(true);
+      setImg(webRef.current.getScreenshot());
+    }
   };
 
   // handle-retake
