@@ -59,7 +59,7 @@ export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
     const valueRef = collection(db, "images");
 
     // timestamp
-    const timestamp = new Date();
+    const timestamp = Date.now();
     try {
       await addDoc(valueRef, {
         link: imgLink,
