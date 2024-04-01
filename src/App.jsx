@@ -38,7 +38,9 @@ export default function App() {
         {/* output-page */}
         <Route
           path="/output"
-          element={<OutputPage generatedImg={generatedImg} url={url} />}
+          element={
+            <OutputPage generatedImg={generatedImg} url={url} setUrl={setUrl} />
+          }
         />
       </Routes>
     </BrowserRouter>

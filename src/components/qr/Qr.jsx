@@ -17,7 +17,8 @@ export default function Qr({ url, setShowQr }) {
         }}
       >
         <h2 className={`gothamBlack ${styles.heading}`}>SCAN, SAVE, SHARE !</h2>
-        <QRCode size={150} value={url} className={styles.qrCode} />
+        {!url && <span className="loader"></span>}
+        {url && <QRCode size={150} value={url} className={styles.qrCode} />}
 
         {/* close */}
         <div className={styles.close} onClick={() => setShowQr(false)}>

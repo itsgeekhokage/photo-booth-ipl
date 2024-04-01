@@ -9,7 +9,7 @@ import loader from "./../../assets/output/loader.svg";
 import readyText from "./../../assets/output/readyText.svg";
 import generatingText from "./../../assets/output/generatingText.svg";
 
-export default function OutputPage({ generatedImg, url }) {
+export default function OutputPage({ generatedImg, url, setUrl }) {
   const [showQr, setShowQr] = useState(false);
 
   return (
@@ -38,7 +38,9 @@ export default function OutputPage({ generatedImg, url }) {
               GENERATE QR
             </button>
             <Link to={"/"}>
-              <button className={styles.btn}>START AGAIN</button>
+              <button onClick={() => setUrl("")} className={styles.btn}>
+                START AGAIN
+              </button>
             </Link>
           </div>
         </div>
