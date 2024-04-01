@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect, useState } from "react";
 import styles from "./avatarPage.module.css";
 import axios from "axios";
@@ -25,7 +27,7 @@ export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
   const [selectedImage, setSelectedImage] = useState();
   const [selectedImageIndex, setSelectedImageIndex] = useState();
 
-  /* 
+  /*
   // converting selectedImage to base64 format
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d");
@@ -47,7 +49,7 @@ export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
   };
 
   // filtering card image with original image
-  const filterOriginalImg = index => {
+  const filterOriginalImg = (index) => {
     const filteredOriginalImgArr = originalImagesArr.filter(
       (originalImg, originalImgIndex) => originalImgIndex === index
     );
@@ -56,7 +58,7 @@ export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
   };
 
   // image uploading on firebase
-  const addLinks = async imgLink => {
+  const addLinks = async (imgLink) => {
     const valueRef = collection(db, "images");
 
     // timestamp
@@ -65,15 +67,17 @@ export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
       await addDoc(valueRef, {
         link: imgLink,
         timestamp: timestamp,
+        image: capturedImg.split(",")[1],
+        choice: selectedImage.split(",")[1],
       });
-      // console.log("image and timestamp uploaded on Firebase.");
+      console.log("image and timestamp uploaded on Firebase.");
     } catch (err) {
       console.error("error adding document:", err);
     }
   };
 
   // image uploading on server
-  const getUrl = url => {
+  const getUrl = (url) => {
     axios
       .post(
         "https://adp24companyday.com/aiphotobooth/aiphotobooth_garnier/upload.php",
@@ -83,7 +87,7 @@ export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
       )
       .then(function (response) {
         setUrl(response.data.url);
-        // console.log("image uploaded on server");
+        console.log("image uploaded on server");
         addLinks(response.data.url);
       })
       .catch(function (error) {
@@ -122,7 +126,10 @@ export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
   return (
     <div className={styles.AvatarPage}>
       <div className={styles.avatarText}>
-        <img src={avatarText} alt="avatar-text" />
+        <img
+          src={avatarText}
+          alt="avatar-text"
+        />
       </div>
 
       <main className={styles.main}>
@@ -134,7 +141,7 @@ export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
               setSelectedImageIndex(index);
               setSelectedImage(filterOriginalImg(index));
               // const originalImg = filterOriginalImg(index);
-              /* 
+              /*
               base64(originalImg, base64Data => {
                 console.log("Base64 data:", base64Data);
                 setSelectedImage(base64Data);
@@ -146,20 +153,24 @@ export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
               img.onload = () => {
                 setSelectedImage(getImageData(img));
               }; */
-            }}
-          >
+            }}>
             <div className={styles.parent}>
               <div className={styles.imgContainer}>
-                <img src={img} alt="avatar" />
+                <img
+                  src={img}
+                  alt="avatar"
+                />
               </div>
 
               <div
                 className={`${styles.hoverContainer} ${
                   selectedImageIndex === index ? styles.showHoverContainer : ""
-                }`}
-              >
+                }`}>
                 <div className={`${styles.selectIcon}`}>
-                  <img src={select} alt="selected" />
+                  <img
+                    src={select}
+                    alt="selected"
+                  />
                 </div>
               </div>
             </div>
@@ -168,7 +179,9 @@ export default function AvatarPage({ setGeneratedImg, capturedImg, setUrl }) {
       </main>
 
       <footer className={styles.footer}>
-        <button onClick={handleSubmit} className={styles.submitBtn}>
+        <button
+          onClick={handleSubmit}
+          className={styles.submitBtn}>
           SUBMIT
         </button>
       </footer>
