@@ -3,12 +3,12 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyATchvbSvYyXHoQ_PNqTyHnAuZQUxs3dc8",
-  authDomain: "ai-video-test-28b14.firebaseapp.com",
-  projectId: "ai-video-test-28b14",
-  storageBucket: "ai-video-test-28b14.appspot.com",
-  messagingSenderId: "621998632535",
-  appId: "1:621998632535:web:2d30bf27864bd720963d12"
+  apiKey: "AIzaSyCRL2Kb9rLZl2W2xQhv1PiR34VmTuBsuWA",
+  authDomain: "garnieraivideobooth.firebaseapp.com",
+  projectId: "garnieraivideobooth",
+  storageBucket: "garnieraivideobooth.appspot.com",
+  messagingSenderId: "1041187261722",
+  appId: "1:1041187261722:web:9317298b0d603b0764f0a3"
 };
 
 const app = initializeApp(firebaseConfig);
